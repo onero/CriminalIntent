@@ -15,12 +15,13 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    private SimpleDateFormat mDateFormat;
+    private SimpleDateFormat mDateFormat, mTimeFormat;
 
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
-        mDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+        mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     }
 
@@ -43,9 +44,12 @@ public class Crime {
     public String getDateAsString() {
         return mDateFormat.format(mDate);
     }
+    public String getTimeAsString() {
+        return mTimeFormat.format(mDate);
+    }
 
     public void setDate(Date date) {
-        mDate = date;
+        mDate = new Date(date.getYear(), date.getMonth(), date.getDate(), mDate.getHours(), mDate.getMinutes());
     }
 
     public boolean isSolved() {
@@ -54,5 +58,10 @@ public class Crime {
 
     public void setSolved(boolean solved) {
         mSolved = solved;
+    }
+
+    public void setTime(Date date) {
+        mDate.setHours(date.getHours());
+        mDate.setMinutes(date.getMinutes());
     }
 }

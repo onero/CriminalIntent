@@ -23,10 +23,23 @@
         android:layout_height="wrap_content"
         android:text="@string/crime_details_label"/>
 
-    <Button
-        android:id="@+id/crime_date"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/crime_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+        <Button
+            android:id="@+id/crime_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/crime_solved"
