@@ -30,12 +30,11 @@ before_script:
   - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
-  - sleep 180
-  - adb devices
   - adb shell input keyevent 82 &
 
 script:
-   - ./gradlew build checkstyle connectedCheck -PdisablePreDex
+  - android list target
+  - ./gradlew connectedAndroidTest
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
