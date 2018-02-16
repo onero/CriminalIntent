@@ -27,6 +27,7 @@ import dk.adamino.criminalintent.Model.CrimeLab;
  */
 
 public class CrimeListFragment extends Fragment {
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
@@ -88,6 +89,10 @@ public class CrimeListFragment extends Fragment {
         // Setup layout manager, to ensure that items can be positioned on the screen
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity())); // Using Linear to stack vertically
 
+        if (savedInstanceState != null) {
+            mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
+        }
+
         updateUI();
 
         return view;
@@ -97,6 +102,12 @@ public class CrimeListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI(); // Reload list of crimes
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
     private void updateUI() {
@@ -109,6 +120,8 @@ public class CrimeListFragment extends Fragment {
         } else {
             mAdapter.notifyDataSetChanged();
         }
+
+        updateSubtitle();
 
         mAdapter = new CrimeAdapter(crimes);
         mCrimeRecyclerView.setAdapter(mAdapter);
