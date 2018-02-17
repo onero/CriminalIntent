@@ -18,11 +18,15 @@ public class Crime {
     private SimpleDateFormat mDateFormat, mTimeFormat;
 
     public Crime() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+
+    public Crime(UUID id) {
+        mTitle = "";
+        mId = id;
         mDate = new Date();
         mDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         mTimeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-
     }
 
     public UUID getId() {
