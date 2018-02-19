@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.Date;
 import java.util.UUID;
@@ -48,6 +50,8 @@ public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Button mDateButton, mTimeButton, mReportButton, mSuspectButton;
     private CheckBox mSolvedCheckBox;
+    private ImageButton mPhotoButton;
+    private ImageView mPhotoView;
 
     public static CrimeFragment newInstance(UUID crimeID) {
         Bundle args = new Bundle();
@@ -171,13 +175,17 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        if (mCrime.getSuspect() != null) mSuspectButton.setText(mCrime.getSuspect());
+        if (mCrime.getSuspect() != null)
+            mSuspectButton.setText(mCrime.getSuspect());
 
         // Guard against no contacts app
         PackageManager packageManager = getActivity().getPackageManager();
         if (packageManager.resolveActivity(pickContact, PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mSuspectButton.setEnabled(false);
         }
+
+        mPhotoButton = v.findViewById(R.id.crime_camera);
+        mPhotoView = v.findViewById(R.id.crime_photo);
 
         return v;
     }
@@ -238,6 +246,7 @@ public class CrimeFragment extends Fragment {
         int suspectStringResource = (suspect == null) ?
                 R.string.crime_report_no_suspect :
                 R.string.crime_report_suspect;
+        suspect = getString(suspectStringResource);
 
         String report = getString(R.string.crime_report,
                 mCrime.getTitle(),
