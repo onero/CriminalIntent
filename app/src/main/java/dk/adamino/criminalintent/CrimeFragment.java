@@ -70,6 +70,7 @@ public class CrimeFragment extends Fragment {
      */
     public interface Callbacks {
         void onCrimeUpdated(Crime crime);
+        void onCrimeDeleted();
     }
 
     private PackageManager mPackageManager;
@@ -109,7 +110,11 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.delete_crime:
                 CrimeLab.get(getActivity()).deleteCrime(mCrime.getId());
-                getActivity().onBackPressed();
+                if (getActivity().getSupportFragmentManager().findFragmentById(R.id.detail_fragment_container) == null)
+                    getActivity().onBackPressed();
+                else
+                    mCallbacks.onCrimeDeleted();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
