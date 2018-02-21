@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kriminel Handling</string>
+    <string name="crime_title_hint">Indtast titel til kriminaliteten.</string>
+    <string name="crime_title_label">Titel</string>
+    <string name="crime_details_label">Detaljer</string>
+    <string name="crime_solved_label">Løst</string>
+    <string name="date_picker_title">Dato for kriminalitet</string>
+    <string name="time_picker_title">Tidspunkt for kriminalitet</string>
+    <string name="new_crime">Ny kriminalitet</string>
+    <string name="show_subtitle">Vis Undertitel</string>
+    <string name="hide_subtitle">Skjul Undertitel</string>
+    <string name="subtitle_format">%1$d kriminalitet</string>
+    <string name="delete_crime">Slet Kriminalitet</string>
+    <string name="crime_suspect_text">Vælg Mistænkt</string>
+    <string name="crime_report_text">Send Rapport</string>
+    <string name="crime_report">%1$s! Kriminaliteten blev opdaget den %2$s. %3$s, og %4$s</string>
+    <string name="crime_report_solved">Sagen er løst</string>
+    <string name="crime_report_unsolved">Sagen er ikke løst</string>
+    <string name="crime_report_no_suspect">ingen mistænkt.</string>
+    <string name="crime_report_suspect">den mistænkte er %s.</string>
+    <string name="crime_report_subject">Kriminalitetsrapport</string>
+    <string name="send_report">Send ved hjælp af</string>
+</resources>

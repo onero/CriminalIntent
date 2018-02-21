@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="crime_title_hint">Indtast forståelig og beskrivende titel for kriminaliteten.</string>
+</resources>
