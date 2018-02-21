@@ -2,6 +2,7 @@ package dk.adamino.criminalintent;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -62,6 +63,14 @@ public class CrimeFragment extends Fragment {
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
     private File mPhotoFile;
+    private Callbacks mCallbacks;
+
+    /**
+     * Required interface for hosting activities
+     */
+    public interface Callbacks {
+        void onCrimeUpdated(Crime crime);
+    }
 
     private PackageManager mPackageManager;
 
@@ -72,6 +81,12 @@ public class CrimeFragment extends Fragment {
         CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
     }
 
     @Override
@@ -107,6 +122,12 @@ public class CrimeFragment extends Fragment {
 
         CrimeLab.get(getActivity())
                 .updateCrime(mCrime);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
     }
 
     @Nullable
@@ -204,6 +225,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mCrime.setSolved(isChecked);
+                updateCrime();
             }
         });
     }
@@ -246,6 +268,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mCrime.setTitle(s.toString());
+                updateCrime();
             }
 
             @Override
@@ -263,11 +286,13 @@ public class CrimeFragment extends Fragment {
             case REQUEST_DATE:
                 Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
                 mCrime.setDate(date);
+                updateCrime();
                 updateDate();
                 break;
             case REQUEST_TIME:
                 Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
                 mCrime.setTime(time);
+                updateCrime();
                 updateTime();
                 break;
             case REQUEST_CONTACT:
@@ -288,6 +313,7 @@ public class CrimeFragment extends Fragment {
                         c.moveToFirst();
                         String suspect = c.getString(0);
                         mCrime.setSuspect(suspect);
+                        updateCrime();
                         mSuspectButton.setText(suspect);
                     }
                 }
@@ -297,11 +323,17 @@ public class CrimeFragment extends Fragment {
                         AUTHORITY,
                         mPhotoFile);
                 getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                updateCrime();
                 updatePhotoView();
                 break;
 
         }
 
+    }
+
+    private void updateCrime() {
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+        mCallbacks.onCrimeUpdated(mCrime);
     }
 
     private void updateTime() {
