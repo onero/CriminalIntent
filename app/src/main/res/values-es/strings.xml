@@ -6,7 +6,7 @@
     <string name="crime_details_label">Detalles</string>
     <string name="crime_solved_label">Solucionado</string>
     <string name="date_picker_title">Fecha del crimen:</string>
-    <string name="new_crime">Crimen Nuevo</string>
+    <string name="new_crime">Nuevo Crimen</string>
     <string name="show_subtitle">Mostrar Subtítulos</string>
     <string name="hide_subtitle">Esconder Subtítulos</string>
     <string name="subtitle_format">%1$s crímenes</string>
